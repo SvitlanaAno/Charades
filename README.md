@@ -11,4 +11,4 @@ Play Crocodile at parties and on the road, with friends and children - and you a
 - Aplication Architecture
 
 ## Screenshot
-![Alt text](demo/img.jpg?raw=true)
+![Alt Text](demo/img.png)
