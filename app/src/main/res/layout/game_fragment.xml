@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="gameViewModel"
+            type="com.example.charades.screens.game.GameViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/game_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.charades.screens.game.GameFragment">
+
+        <ImageView
+            android:id="@+id/scoreImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/game_score_image" />
+
+        <TextView
+            android:id="@+id/score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/yomogi"
+            android:foregroundGravity="center_horizontal"
+            android:text="@{String.valueOf(gameViewModel.score)}"
+            android:textColor="@color/grey_text_color"
+            android:textSize="34sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/scoreImage"
+            app:layout_constraintEnd_toEndOf="@+id/scoreImage"
+            app:layout_constraintHorizontal_bias="0.67"
+            app:layout_constraintStart_toStartOf="@+id/scoreImage"
+            app:layout_constraintTop_toTopOf="@+id/scoreImage"
+            tools:text=" 2" />
+
+        <ImageView
+            android:id="@+id/gameImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:layout_constraintBottom_toTopOf="@+id/timer_block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/game_back" />
+
+        <TextView
+            android:id="@+id/word_is_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/yomogi"
+            android:text="@string/word_is"
+            android:textColor="@color/black_text_color"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/word_text"
+            app:layout_constraintEnd_toEndOf="@+id/gameImage"
+            app:layout_constraintHorizontal_bias="0.559"
+            app:layout_constraintStart_toStartOf="@+id/gameImage"
+            app:layout_constraintTop_toTopOf="@+id/gameImage"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/word_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:background="#7e4ce4b1"
+            android:fontFamily="@font/yomogi"
+            android:text="@{@string/quote_format(gameViewModel.word)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/black_text_color"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/gameImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/word_is_text"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="&quot;Tuna&quot;" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/timer_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameImage">
+
+            <ImageView
+                android:id="@+id/timer_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/timer_block"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/timer_image" />
+
+            <TextView
+                android:id="@+id/timer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/yomogi"
+                android:text="@{gameViewModel.timeLeftString}"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/timer_image"
+                app:layout_constraintStart_toStartOf="@+id/timer_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="0:00" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/skip_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rounded_button_minor"
+            android:onClick="@{()-> gameViewModel.onSkip()}"
+            android:text="@string/skip"
+            android:theme="@style/SkipButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/correct_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="96dp" />
+
+        <Button
+            android:id="@+id/correct_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{()-> gameViewModel.onCorrect()}"
+            android:text="@string/got_it"
+            android:theme="@style/GoButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/skip_button"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
